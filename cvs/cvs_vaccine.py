@@ -10,7 +10,11 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 
+chromedriver_location='/usr/local/bin/chromedriver'
+initial_url='https://www.cvs.com/immunizations/covid-19-vaccine?icid=cvs-home-hero1-banner-1-link2-coronavirus-vaccine#'
+
 state='California'
+
 
 chromeOptions = webdriver.ChromeOptions() 
 chromeOptions.add_experimental_option("prefs", {"profile.managed_default_content_settings.images": 2}) 
@@ -27,8 +31,8 @@ chromeOptions.add_argument("start-maximized")
 chromeOptions.add_argument("disable-infobars")
 chromeOptions.add_argument(r"user-data-dir=.\cookies\\test") 
 
-driver = webdriver.Chrome('/usr/local/bin/chromedriver',options=chromeOptions)  
-driver.get('https://www.cvs.com/immunizations/covid-19-vaccine?icid=cvs-home-hero1-banner-1-link2-coronavirus-vaccine#');
+driver = webdriver.Chrome(chromedriver_location, options=chromeOptions)  
+driver.get(initial_url);
 time.sleep(3) 
 
 try:
