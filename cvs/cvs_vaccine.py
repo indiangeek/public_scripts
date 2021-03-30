@@ -6,9 +6,17 @@
 
 
 import time
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException
+from sys import exit
+import os
+
+try:
+	from selenium import webdriver
+	from selenium.webdriver.common.by import By
+	from selenium.common.exceptions import NoSuchElementException, WebDriverException
+except ImportError as e:
+	print("Please install selenium")
+	exit(1)
+    	
 
 chromedriver_location='/usr/local/bin/chromedriver'
 initial_url='https://www.cvs.com/immunizations/covid-19-vaccine?icid=cvs-home-hero1-banner-1-link2-coronavirus-vaccine#'
@@ -31,7 +39,12 @@ chromeOptions.add_argument("start-maximized")
 chromeOptions.add_argument("disable-infobars")
 chromeOptions.add_argument(r"user-data-dir=.\cookies\\test") 
 
-driver = webdriver.Chrome(chromedriver_location, options=chromeOptions)  
+try:
+	driver = webdriver.Chrome(chromedriver_location, options=chromeOptions)  
+except WebDriverException:
+	print("Chromedriver not found. Install chromedriver and set chromedriver_location")
+	exit(1)
+
 driver.get(initial_url);
 time.sleep(3) 
 
